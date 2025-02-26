@@ -1,0 +1,29 @@
+/* src/assets/style.css */
+:root {
+  --primary-color: #42b883;
+  --secondary-color: #35495e;
+  --bg-color: #ffffff;
+  --text-color: #2c3e50;
+}
+
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a.router-link-active {
+  font-weight: bold;
+}
