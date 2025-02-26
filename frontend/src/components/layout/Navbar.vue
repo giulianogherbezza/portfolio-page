@@ -1,23 +1,23 @@
 <template>
   <nav>
-    <div class="logo">Mein Portfolio</div>
-    <button @click="isOpen = !isOpen" class="hamburger">☰</button>
+    <div class="menu-icon" @click="toggleMenu">☰</div>
     <ul :class="{ open: isOpen }">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/resume">Resume</router-link>
-      <router-link to="/travels">Travels</router-link>
-      <router-link to="/contact">Contact</router-link>
-      <DarkModeToggle />
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/about">About</router-link></li>
+      <li><router-link to="/resume">Resume</router-link></li>
+      <li><router-link to="/travel-map">Travel Map</router-link></li>
+      <li><router-link to="/contact">Contact</router-link></li>
     </ul>
+    <DarkModeToggle />
   </nav>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from "vue";
 import DarkModeToggle from "../ui/DarkModeToggle.vue";
 
 const isOpen = ref(false);
+const toggleMenu = () => (isOpen.value = !isOpen.value);
 </script>
 
 <style scoped>
@@ -25,30 +25,19 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 10px;
+  background: var(--background);
 }
-
-.hamburger {
-  display: none;
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
 }
-
 ul {
+  list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 15px;
 }
-
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  ul {
-    display: none;
-    flex-direction: column;
-  }
-
-  ul.open {
-    display: flex;
-  }
+ul.open {
+  display: block;
 }
 </style>
