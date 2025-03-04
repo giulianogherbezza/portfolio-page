@@ -45,26 +45,41 @@ a.router-link-active {
   top: 0;
   width: 250px;
   height: 100vh;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.2); /* Light Mode */
   color: var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
+  padding: 20px 10px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px); /* 🌟 Der Blur Effekt */
+  -webkit-backdrop-filter: blur(10px); /* Safari Support */
   transition: transform 0.3s ease-in-out, background 0.3s ease, color 0.3s ease;
   z-index: 1000;
 }
 
+
+.navbar-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  gap: 30px;
+}
+
+
 body.dark-mode .navbar {
   background: transparent;
   color: var(--text-color-dark);
+  
 }
 
 .navbar .dark-mode-toggle {
   position: absolute;
   top: 10px;
   left: 10px;
+  
 }
 
 .navbar .profile {
@@ -131,5 +146,151 @@ body.dark-mode .navbar {
 
   .navbar .menu-icon {
     display: block;
+  }
+}
+
+/***** FOOTER *****/
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  background: transparent; /* Damit der Body-Background sichtbar bleibt */
+  color: var(--text-color);
+  border: none; /* Linie entfernen */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 500;
+}
+
+/***** TRAVEL MAP VIEW *****/
+
+.map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px); /* Platz für den Footer */
+  margin-left: 250px; /* Platz für die Navbar */
+  margin-right: 20px;
+  text-align: center;
+  gap: 20px;
+}
+
+.map-container h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+/* Leaflet-Karte */
+#map {
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Optimierung */
+@media (max-width: 768px) {
+  .map-container {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  #map {
+    height: 400px;
+  }
+}
+
+
+/***** CONTACT VIEW *****/
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 250px; /* Abstand zur Navbar */
+  margin-right: 20px;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px); /* Platz für den Footer */
+  text-align: center;
+  gap: 20px;
+}
+
+.contact-container h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+/* Formular */
+.contact-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 15px;
+}
+
+.contact-container label {
+  font-weight: bold;
+  text-align: left;
+}
+
+.contact-container input,
+.contact-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.contact-container textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.contact-container button {
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.contact-container button:hover {
+  background-color: #0056b3;
+}
+
+.contact-container button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* Erfolg- und Fehlermeldungen */
+.contact-container .success-message {
+  color: green;
+  margin-top: 10px;
+}
+
+.contact-container .error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Mobile Optimierung */
+@media (max-width: 768px) {
+  .contact-container {
+    margin-left: 0;
+    padding: 20px;
   }
 }

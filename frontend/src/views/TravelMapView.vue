@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <h1>Meine Reiseziele</h1>
+    <h1>Meine Reisen</h1>
     <div id="map"></div>
   </div>
 </template>
@@ -91,15 +91,4 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.map-container {
-  text-align: center;
-  padding: 20px;
-}
 
-#map {
-  width: 100%;
-  height: 500px;
-  border-radius: 10px;
-}
-</style>
