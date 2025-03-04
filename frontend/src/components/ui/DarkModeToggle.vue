@@ -1,7 +1,8 @@
 <template>
-  <button @click="toggleDarkMode">
-    {{ isDarkMode ? "🌙 Dark Mode" : "☀️ Light Mode" }}
-  </button>
+  <label class="toggle-switch">
+    <input type="checkbox" :checked="isDarkMode" @change="toggleDarkMode" />
+    <span class="slider"></span>
+  </label>
 </template>
 
 <script setup>
@@ -19,3 +20,4 @@ onMounted(() => {
   document.body.classList.toggle("dark-mode", isDarkMode.value);
 });
 </script>
+
