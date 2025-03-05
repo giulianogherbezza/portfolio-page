@@ -1,13 +1,13 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vite.dev/config/
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig({
-  base: '/portfolio-page/', // <--- Hier den exakten Namen deines Repos eintragen!
+  base: isProduction ? '/portfolio-page/' : '/',
   plugins: [
     vue(),
     vueJsx(),
@@ -19,4 +19,3 @@ export default defineConfig({
     },
   },
 })
-
