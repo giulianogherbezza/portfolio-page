@@ -6,25 +6,37 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background: url('/src/assets/background-light.jpg') no-repeat center center fixed;
+  background: url("/src/assets/background-light.jpg") no-repeat center center
+    fixed;
   background-size: cover;
   color: var(--text-color);
   transition: background-image 0.5s ease-in-out, color 0.3s ease;
 }
 
 body.dark-mode {
-  background: url('/src/assets/background-dark.jpg') no-repeat center center fixed;
+  background: url("/src/assets/background-dark.jpg") no-repeat center center
+    fixed;
   background-size: cover;
   color: var(--text-color-dark);
 }
 
+/* Dark Mode */
+body.dark-mode .map-container h1 {
+  color: var(--heading-color-dark);
+}
+
+body.dark-mode .contact-container h1 {
+  color: var(--heading-color-dark);
+}
 :root {
   --primary-color: #42b883;
   --secondary-color: #35495e;
   --background-light: #ffffff;
   --background-dark: #121212;
-  --text-color: #2c3e50;
-  --text-color-dark: #ffffff;
+  --text-color: #2c3e50; /* Light Mode Text */
+  --text-color-dark: #ffffff; /* Dark Mode Text */
+  --heading-color: #1d1d1d; /* Light Mode Überschrift */
+  --heading-color-dark: #f5f5f5; /* Dark Mode Überschrift */
 }
 
 a {
@@ -35,7 +47,6 @@ a {
 a.router-link-active {
   font-weight: bold;
 }
-
 
 /***** NAVBAR *****/
 
@@ -58,7 +69,6 @@ a.router-link-active {
   z-index: 1000;
 }
 
-
 .navbar-content {
   display: flex;
   flex-direction: column;
@@ -68,18 +78,15 @@ a.router-link-active {
   gap: 30px;
 }
 
-
 body.dark-mode .navbar {
   background: transparent;
   color: var(--text-color-dark);
-  
 }
 
 .navbar .dark-mode-toggle {
   position: absolute;
   top: 10px;
   left: 10px;
-  
 }
 
 .navbar .profile {
@@ -131,7 +138,6 @@ body.dark-mode .navbar {
   display: none;
 }
 
-
 /***** NAVBAR - MOBILE *****/
 
 @media (max-width: 768px) {
@@ -182,7 +188,7 @@ body.dark-mode .navbar {
 .map-container h1 {
   font-size: 32px;
   margin-bottom: 20px;
-  color: var(--text-color);
+  color: var(--heading-color);
 }
 
 /* Leaflet-Karte */
@@ -206,7 +212,6 @@ body.dark-mode .navbar {
   }
 }
 
-
 /***** CONTACT VIEW *****/
 
 .contact-container {
@@ -225,7 +230,7 @@ body.dark-mode .navbar {
 .contact-container h1 {
   font-size: 32px;
   margin-bottom: 20px;
-  color: var(--text-color);
+  color: var(--heading-color);
 }
 
 /* Formular */
@@ -352,4 +357,3 @@ body.dark-mode .toggle-switch .slider {
 body.dark-mode .toggle-switch input:checked + .slider {
   background-color: rgba(0, 0, 0, 0.4);
 }
-
