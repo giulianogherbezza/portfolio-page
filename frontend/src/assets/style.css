@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background: url('/background-light.jpg') no-repeat center center
+  background: url("/src/assets/background-light.jpg") no-repeat center center
     fixed;
   background-size: cover;
   color: var(--text-color);
@@ -14,7 +14,7 @@ body {
 }
 
 body.dark-mode {
-  background: url('/background-dark.jpg') no-repeat center center
+  background: url("/src/assets/background-dark.jpg") no-repeat center center
     fixed;
   background-size: cover;
   color: var(--text-color-dark);

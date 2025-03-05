@@ -4,10 +4,11 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-const isProduction = process.env.NODE_ENV === 'production';
+// https://vite.dev/config/
+
 
 export default defineConfig({
-  base: isProduction ? '/portfolio-page/' : '/',
+  base: '/portfolio-page/', // <--- Hier den exakten Namen deines Repos eintragen!
   plugins: [
     vue(),
     vueJsx(),
