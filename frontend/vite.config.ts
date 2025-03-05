@@ -7,6 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/portfolio-page/', // <--- Hier den exakten Namen deines Repos eintragen!
   plugins: [
     vue(),
     vueJsx(),
@@ -18,3 +19,4 @@ export default defineConfig({
     },
   },
 })
+
