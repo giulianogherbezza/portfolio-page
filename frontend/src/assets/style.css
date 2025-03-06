@@ -6,21 +6,144 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background: url("/src/assets/background-light.jpg") no-repeat center center
+  background: url("@/assets/background-light.jpg") no-repeat center center
     fixed;
   background-size: cover;
   color: var(--text-color);
   transition: background-image 0.5s ease-in-out, color 0.3s ease;
 }
-
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: transparent;
+}
 body.dark-mode {
-  background: url("/src/assets/background-dark.jpg") no-repeat center center
+  background: url("@/assets/background-dark.jpg") no-repeat center center
     fixed;
   background-size: cover;
   color: var(--text-color-dark);
 }
 
-/* Dark Mode */
+/***** HAMBURGER MENU BUTTON *****/
+
+.hamburger {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  padding: 8px 12px;
+  background: transparent;
+  color: black; /* Light Mode */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2000;
+  display: none;
+}
+
+/* Dark Mode Farbe */
+body.dark-mode .hamburger {
+  color: white;
+}
+
+/* Nur sichtbar auf kleinen Screens */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+
+
+/***** DARK MODE TOGGLE *****/
+
+.darkmode-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-icon {
+  font-size: 18px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(200, 200, 200, 0.6);
+  border-radius: 34px;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch .slider::before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: rgba(100, 100, 100, 0.8);
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+body.dark-mode .toggle-switch .slider {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode .toggle-switch input:checked + .slider {
+  background-color: rgba(50, 50, 50, 0.8);
+}
+
+/***** DARK MODE TOGGLE OPTIMIERUNG *****/
+
+/* Standard (Light Mode) */
+.toggle-switch .slider {
+  background-color: rgba(200, 200, 200, 0.6); /* Light Mode grau */
+}
+
+/* Wenn aktiviert (egal ob Light oder Dark Mode) */
+.toggle-switch input:checked + .slider {
+  background-color: rgba(100, 100, 100, 0.8);
+}
+
+/* Dark Mode Toggle Hintergrund */
+body.dark-mode .toggle-switch .slider {
+  background-color: rgba(255, 255, 255, 0.981); /* Heller im Dark Mode */
+}
+
+body.dark-mode .toggle-switch input:checked + .slider {
+  background-color: rgba(255, 255, 255, 0.8); /* Noch heller bei Aktivierung */
+}
+
+
+
 body.dark-mode .map-container h1 {
   color: var(--heading-color-dark);
 }
@@ -28,6 +151,15 @@ body.dark-mode .map-container h1 {
 body.dark-mode .contact-container h1 {
   color: var(--heading-color-dark);
 }
+body.dark-mode .footer {
+  color: var(--text-color-dark);
+}
+
+body.dark-mode .menu-icon {
+  color: white;
+}
+
+
 :root {
   --primary-color: #42b883;
   --secondary-color: #35495e;
@@ -129,14 +261,8 @@ body.dark-mode .navbar {
   border-radius: 5px;
 }
 
-.navbar .menu-icon {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  display: none;
-}
+
+
 
 /***** NAVBAR - MOBILE *****/
 
@@ -298,6 +424,20 @@ body.dark-mode .navbar {
     margin-left: 0;
     padding: 20px;
   }
+}
+
+/* Dark Mode für Formulareingaben */
+body.dark-mode .contact-container input,
+body.dark-mode .contact-container textarea {
+  background-color: #333; /* dunkler Hintergrund */
+  color: #fff; /* helle Schrift */
+  border: 1px solid #555; /* dezente Umrandung */
+}
+
+/* Optional: Placeholder ebenfalls heller */
+body.dark-mode .contact-container input::placeholder,
+body.dark-mode .contact-container textarea::placeholder {
+  color: #bbb;
 }
 
 /***** DARK MODE TOGGLE *****/

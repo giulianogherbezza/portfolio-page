@@ -1,8 +1,11 @@
 <template>
-  <label class="toggle-switch">
-    <input type="checkbox" :checked="isDarkMode" @change="toggleDarkMode" />
-    <span class="slider"></span>
-  </label>
+  <div class="darkmode-wrapper">
+    <span class="toggle-icon">{{ isDarkMode ? '🌙' : '☀️' }}</span>
+    <label class="toggle-switch">
+      <input type="checkbox" :checked="isDarkMode" @change="toggleDarkMode" />
+      <span class="slider"></span>
+    </label>
+  </div>
 </template>
 
 <script setup>

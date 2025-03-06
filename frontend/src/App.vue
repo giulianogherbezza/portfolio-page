@@ -24,34 +24,4 @@ const toggleMenu = () => {
 };
 </script>
 
-<style scoped>
-main {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: transparent;
-}
 
-/* Hamburger-Button */
-.hamburger {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-size: 28px;
-  padding: 8px 12px;
-  background: transparent;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 2000;
-  display: none;
-}
-
-/* Nur sichtbar auf kleinen Screens */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-}
-</style>
