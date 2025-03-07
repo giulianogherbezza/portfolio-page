@@ -6,8 +6,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background: url("@/assets/background-light.jpg") no-repeat center center
-    fixed;
+  background: url("background-light.jpg") no-repeat center center fixed;
   background-size: cover;
   color: var(--text-color);
   transition: background-image 0.5s ease-in-out, color 0.3s ease;
@@ -19,8 +18,7 @@ main {
   background: transparent;
 }
 body.dark-mode {
-  background: url("@/assets/background-dark.jpg") no-repeat center center
-    fixed;
+  background: url("background-dark.jpg") no-repeat center center fixed;
   background-size: cover;
   color: var(--text-color-dark);
 }
@@ -53,8 +51,6 @@ body.dark-mode .hamburger {
     display: block;
   }
 }
-
-
 
 /***** DARK MODE TOGGLE *****/
 
@@ -142,8 +138,6 @@ body.dark-mode .toggle-switch input:checked + .slider {
   background-color: rgba(255, 255, 255, 0.8); /* Noch heller bei Aktivierung */
 }
 
-
-
 body.dark-mode .map-container h1 {
   color: var(--heading-color-dark);
 }
@@ -158,7 +152,6 @@ body.dark-mode .footer {
 body.dark-mode .menu-icon {
   color: white;
 }
-
 
 :root {
   --primary-color: #42b883;
@@ -260,9 +253,6 @@ body.dark-mode .navbar {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
-
-
-
 
 /***** NAVBAR - MOBILE *****/
 

@@ -12,7 +12,7 @@
 
       <ul>
         <li><router-link to="/">About</router-link></li>
-        <li><router-link to="/about">Hobbys</router-link></li>
+        <li><router-link to="/hobbys">Hobbys</router-link></li>
         <li><router-link to="/resume">Resume</router-link></li>
         <li><router-link to="/travel-map">Travel Map</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
@@ -20,7 +20,6 @@
     </div>
   </nav>
 </template>
-
 
 <script setup>
 import { defineProps } from "vue";
@@ -30,4 +29,3 @@ const props = defineProps({
   isOpen: Boolean,
 });
 </script>
-
