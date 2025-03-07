@@ -705,3 +705,16 @@ body.dark-mode .game-card p {
     padding: 20px;
   }
 }
+/* Mini Games - Bilder */
+.game-image {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  margin: 15px 0;
+  object-fit: cover;
+}
+
+/* Darkmode für Bilder-Rahmen */
+body.dark-mode .game-image {
+  border: 2px solid #fff;
+}
