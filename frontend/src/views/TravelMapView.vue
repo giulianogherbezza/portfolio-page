@@ -1,6 +1,28 @@
 <template>
   <div class="map-container">
     <h1>Meine Reisen</h1>
+
+    <!-- Reiseberichte -->
+    <div class="travel-cards">
+      <div
+        class="travel-card"
+        v-for="n in 6"
+        :key="n"
+        :class="{ reverse: n % 2 === 0 }"
+      >
+        <div class="travel-text">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            varius enim in eros elementum tristique.
+          </p>
+        </div>
+        <div class="travel-image">
+          <img src="@/assets/Beispiel-Bild.jpg" alt="Reisebild" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaflet Karte jetzt ganz unten -->
     <div id="map"></div>
   </div>
 </template>
@@ -90,5 +112,3 @@ onMounted(() => {
   });
 });
 </script>
-
-

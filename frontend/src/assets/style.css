@@ -316,7 +316,70 @@ body.dark-mode .navbar {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/***** REISEBERICHTE (Travel Cards) *****/
+
+.travel-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1000px; /* gleiche Breite wie die Karte */
+}
+
+.travel-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.2); /* Light Mode */
+  border-radius: 15px;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Wechselndes Layout für jede zweite Karte */
+.travel-card.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Dark Mode Anpassung */
+body.dark-mode .travel-card {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.travel-text {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.travel-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.travel-image img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 /* Mobile Optimierung */
+@media (max-width: 768px) {
+  .travel-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .travel-image img {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .map-container {
     margin-left: 0;
@@ -326,6 +389,11 @@ body.dark-mode .navbar {
   #map {
     height: 400px;
   }
+}
+/***** Darkmode für Text *****/
+
+body.dark-mode .travel-text {
+  color: var(--text-color-dark);
 }
 
 /***** CONTACT VIEW *****/

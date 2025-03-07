@@ -24,4 +24,26 @@ const toggleMenu = () => {
 };
 </script>
 
+</style>
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background: url("background-light.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-color);
+  transition: background-image 0.5s ease-in-out, color 0.3s ease;
+}
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: transparent;
+}
+body.dark-mode {
+  background: url("background-dark.jpg") no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-color-dark);
+}
+</style>
