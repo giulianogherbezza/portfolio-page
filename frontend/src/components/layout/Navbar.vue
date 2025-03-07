@@ -12,9 +12,9 @@
 
       <ul>
         <li><router-link to="/">About</router-link></li>
-        <li><router-link to="/hobbys">Hobbys</router-link></li>
         <li><router-link to="/resume">Resume</router-link></li>
         <li><router-link to="/travel-map">Travel Map</router-link></li>
+        <li><router-link to="/minigames">Mini Games</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
       </ul>
     </div>
