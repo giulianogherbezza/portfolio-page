@@ -4,11 +4,11 @@
 
   <!-- Navbar erhält den Status, ob sie offen ist -->
   <Navbar :isOpen="isNavbarOpen" />
-  
+
   <main>
     <router-view />
   </main>
-  
+
   <Footer />
 </template>
 
@@ -24,13 +24,12 @@ const toggleMenu = () => {
 };
 </script>
 
-</style>
-
+<style>
 body {
   margin: 0;
   padding: 0;
   font-family: "Arial", sans-serif;
-  background: url("background-light.jpg") no-repeat center center fixed;
+  background: url("@/assets/Background-light.jpg") no-repeat center center fixed;
   background-size: cover;
   color: var(--text-color);
   transition: background-image 0.5s ease-in-out, color 0.3s ease;
@@ -42,7 +41,7 @@ main {
   background: transparent;
 }
 body.dark-mode {
-  background: url("background-dark.jpg") no-repeat center center fixed;
+  background: url("@/assets/Background-dark.jpg") no-repeat center center fixed;
   background-size: cover;
   color: var(--text-color-dark);
 }
