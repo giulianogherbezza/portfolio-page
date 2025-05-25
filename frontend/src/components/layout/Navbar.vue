@@ -1,31 +1,71 @@
 <template>
-  <nav class="navbar" :class="{ open: props.isOpen }">
+  <nav class="navbar" :class="{ open: isOpen }">
+    <!-- Close Button für Mobile -->
+    <button class="close-btn" @click="$emit('close')" v-if="isOpen">
+      ✕
+    </button>
+
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle">
-      <DarkModeToggle />
+      <div class="darkmode-wrapper">
+        <span class="toggle-icon">☀️</span>
+        <label class="toggle-switch">
+          <input type="checkbox" @change="toggleDarkMode" />
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-icon">🌙</span>
+      </div>
     </div>
 
+    <!-- Navbar Content -->
     <div class="navbar-content">
+      <!-- Profile Picture -->
       <div class="profile">
-        <img src="@/assets/profile.jpg" alt="Profilbild" />
+        <img src="@/assets/profile.jpg" alt="Profile" />
       </div>
 
+      <!-- Navigation Links -->
       <ul>
-        <li><router-link to="/">About</router-link></li>
-        <li><router-link to="/resume">Resume</router-link></li>
-        <li><router-link to="/travel-map">Travel Map</router-link></li>
-        <li><router-link to="/minigames">Mini Games</router-link></li>
-        <li><router-link to="/contact">Contact</router-link></li>
+        <li>
+          <router-link to="/" @click="closeOnMobile">About</router-link>
+        </li>
+        <li>
+          <router-link to="/minigames" @click="closeOnMobile">Mini-Games</router-link>
+        </li>
+        <li>
+          <router-link to="/resume" @click="closeOnMobile">Resume</router-link>
+        </li>
+        <li>
+          <router-link to="/travel-map" @click="closeOnMobile">Travel Map</router-link>
+        </li>
+        <li>
+          <router-link to="/contact" @click="closeOnMobile">Contact</router-link>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 
-<script setup>
-import { defineProps } from "vue";
-import DarkModeToggle from "../ui/DarkModeToggle.vue";
+<script setup lang="ts">
+import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps({
-  isOpen: Boolean,
-});
+// Props
+const props = defineProps<{
+  isOpen: boolean;
+}>();
+
+// Emits
+const emit = defineEmits(['close']);
+
+// Dark Mode Toggle
+const toggleDarkMode = () => {
+  document.body.classList.toggle('dark-mode');
+};
+
+// Close navbar on mobile after clicking a link
+const closeOnMobile = () => {
+  if (window.innerWidth <= 768) {
+    emit('close');
+  }
+};
 </script>

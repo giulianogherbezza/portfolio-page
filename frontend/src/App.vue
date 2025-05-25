@@ -1,9 +1,18 @@
 <template>
   <!-- Hamburger-Button -->
-  <button class="hamburger" @click="toggleMenu">☰</button>
+  <button class="hamburger" @click="toggleMenu" v-show="!isNavbarOpen">
+    ☰
+  </button>
 
-  <!-- Navbar erhält den Status, ob sie offen ist -->
-  <Navbar :isOpen="isNavbarOpen" />
+  <!-- Navbar erhält den Status und kann sich selbst schließen -->
+  <Navbar :isOpen="isNavbarOpen" @close="isNavbarOpen = false" />
+
+  <!-- Overlay für Mobile -->
+  <div 
+    class="mobile-overlay" 
+    v-if="isNavbarOpen && isMobile" 
+    @click="isNavbarOpen = false"
+  ></div>
 
   <main>
     <router-view />
@@ -13,36 +22,32 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import Navbar from "./components/layout/Navbar.vue";
 import Footer from "./components/layout/Footer.vue";
 
 const isNavbarOpen = ref(false);
+const isMobile = ref(false);
 
 const toggleMenu = () => {
   isNavbarOpen.value = !isNavbarOpen.value;
 };
-</script>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Arial", sans-serif;
-  background: url("@/assets/Background-light.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color: var(--text-color);
-  transition: background-image 0.5s ease-in-out, color 0.3s ease;
-}
-main {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  background: transparent;
-}
-body.dark-mode {
-  background: url("@/assets/Background-dark.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color: var(--text-color-dark);
-}
-</style>
+// Check if mobile
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+  // Close navbar on resize to desktop
+  if (!isMobile.value) {
+    isNavbarOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMobile);
+});
+</script>
