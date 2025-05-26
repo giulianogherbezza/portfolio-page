@@ -660,196 +660,632 @@ body.dark-mode .contact-container textarea::placeholder {
 }
 
 /***** MINI GAMES VIEW *****/
+/***** MINI GAMES VIEW - MODERN DESIGN *****/
 .mini-games-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 40px 20px;
-  gap: 30px;
-  min-height: calc(100vh - 80px);
-  text-align: center;
   max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+}
+
+.games-title {
+  font-size: clamp(32px, 5vw, 48px);
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--heading-color);
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.games-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+body.dark-mode .games-title {
+  color: var(--heading-color-dark);
+}
+
+/* Game Tab Navigation - Reuse from Resume */
+.mini-games-container .tab-navigation {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mini-games-container .tab-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 25px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid transparent;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.tab-icon {
+  font-size: 24px;
+}
+
+.tab-text {
+  font-weight: 500;
+}
+
+.mini-games-container .tab-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mini-games-container .tab-button.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 5px 20px rgba(66, 184, 131, 0.3);
+}
+
+body.dark-mode .mini-games-container .tab-button {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-color-dark);
+}
+
+body.dark-mode .mini-games-container .tab-button.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Game Content */
+.game-content {
+  max-width: 800px;
   margin: 0 auto;
 }
 
-.mini-games-container h1 {
-  font-size: clamp(28px, 5vw, 36px);
+.game-wrapper {
+  animation: fadeInUp 0.6s ease;
+}
+
+/* Game Header */
+.game-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.game-icon-large {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--primary-color), #35a373);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  box-shadow: 0 10px 30px rgba(66, 184, 131, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.game-header h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  margin-bottom: 10px;
   color: var(--heading-color);
+}
+
+body.dark-mode .game-header h2 {
+  color: var(--heading-color-dark);
+}
+
+.game-description {
+  font-size: 18px;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+body.dark-mode .game-description {
+  color: var(--text-color-dark);
+}
+
+/* Game Section */
+.game-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+/* Cards */
+.question-card, .joke-card, .pokemon-card, .flag-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  width: 100%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-speed) ease;
+}
+
+body.dark-mode .question-card,
+body.dark-mode .joke-card,
+body.dark-mode .pokemon-card,
+body.dark-mode .flag-card {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.question-card h3, .joke-setup h3, .joke-punchline h3 {
+  font-size: 18px;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.question-text {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--heading-color);
+}
+
+body.dark-mode .question-text {
+  color: var(--heading-color-dark);
+}
+
+/* Answer Grid */
+.answers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.answer-button {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 15px;
+  font-size: 16px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+  text-align: left;
+}
+
+.answer-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.answer-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.answer-button.correct {
+  background: rgba(66, 184, 131, 0.2);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.answer-button.incorrect {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+body.dark-mode .answer-button {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-color-dark);
+}
+
+/* Joke Styles */
+.joke-setup, .joke-punchline {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.joke-punchline {
+  animation: slideInUp 0.5s ease;
+}
+
+/* Pokemon Styles */
+.pokemon-image-container {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.pokemon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: filter var(--transition-speed) ease;
+}
+
+.pokemon-image.silhouette {
+  filter: brightness(0) contrast(100%);
+}
+
+.pokemon-placeholder {
+  font-size: 72px;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.guess-section {
+  display: flex;
+  gap: 15px;
+  width: 100%;
   margin-bottom: 20px;
 }
 
-body.dark-mode .mini-games-container h1 {
-  color: var(--text-color-dark);
-}
-
-/* Game Cards */
-.game-card {
-  width: 100%;
-  max-width: 800px;
-  padding: 30px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  transition: transform var(--transition-speed) ease, 
-              box-shadow var(--transition-speed) ease;
-}
-
-.game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-body.dark-mode .game-card {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.game-card h2 {
-  font-size: clamp(20px, 3vw, 28px);
-  color: var(--heading-color);
-  margin: 0;
-}
-
-body.dark-mode .game-card h2 {
-  color: var(--text-color-dark);
-}
-
-.game-card p {
+.guess-input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   font-size: 16px;
-  color: var(--text-color);
-  margin: 10px 0;
-}
-
-body.dark-mode .game-card p {
-  color: var(--text-color-dark);
-}
-
-/* Game Inputs */
-.game-card input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 300px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.5);
   transition: all var(--transition-speed) ease;
 }
 
-.game-card input:focus {
+.guess-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(66, 184, 131, 0.2);
+  box-shadow: 0 0 0 3px rgba(66, 184, 131, 0.1);
 }
 
-body.dark-mode .game-card input {
-  background-color: rgba(51, 51, 51, 0.9);
-  color: #fff;
-  border-color: #555;
+body.dark-mode .guess-input {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-color-dark);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Game Buttons */
-.game-card button {
-  padding: 12px 20px;
+/* Flag Styles */
+.flag-container {
+  width: 100%;
+  max-width: 400px;
+  height: 250px;
+  margin: 0 auto 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.flag-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flag-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.flag-card h3 {
+  font-size: 24px;
+  text-align: center;
+  color: var(--heading-color);
+  margin-top: 20px;
+}
+
+body.dark-mode .flag-card h3 {
+  color: var(--heading-color-dark);
+}
+
+/* Options Grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  width: 100%;
+}
+
+.option-button {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 15px;
   font-size: 16px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
+  color: var(--text-color);
   cursor: pointer;
   transition: all var(--transition-speed) ease;
-  margin: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.game-card button:hover {
-  background-color: #555;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+.option-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.game-card button:active {
-  transform: translateY(0px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.option-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
-body.dark-mode .game-card button {
-  background-color: #ddd;
-  color: #222;
+.option-button.correct {
+  background: rgba(66, 184, 131, 0.2);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
-body.dark-mode .game-card button:hover {
-  background-color: #bbb;
+.option-button.incorrect {
+  background: rgba(220, 53, 69, 0.2);
+  border-color: #dc3545;
+  color: #dc3545;
 }
 
-/* Game Images */
-.game-image {
+body.dark-mode .option-button {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-color-dark);
+}
+
+/* Feedback Card */
+.feedback-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border-radius: 15px;
   width: 100%;
-  max-width: 300px;
-  border-radius: 10px;
-  margin: 15px 0;
-  object-fit: cover;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: slideInUp 0.3s ease;
 }
 
-body.dark-mode .game-image {
-  border: 2px solid rgba(255, 255, 255, 0.1);
+.feedback-card.success {
+  background: rgba(66, 184, 131, 0.1);
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
-/* Game Feedback */
-.game-card p.feedback {
-  font-size: 18px;
+.feedback-card.error {
+  background: rgba(220, 53, 69, 0.1);
+  border: 2px solid #dc3545;
+  color: #dc3545;
+}
+
+.feedback-icon {
+  font-size: 24px;
   font-weight: bold;
-  margin-top: 10px;
-  padding: 10px 15px;
-  border-radius: 10px;
-  display: inline-block;
+}
+
+/* Action Buttons */
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
   transition: all var(--transition-speed) ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.game-card p.feedback.correct {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+.action-button.primary {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 5px 20px rgba(66, 184, 131, 0.3);
 }
 
-.game-card p.feedback.wrong {
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+.action-button.primary:hover {
+  background: #35a373;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(66, 184, 131, 0.4);
 }
 
-body.dark-mode .game-card p.feedback.correct {
-  background-color: #215732;
-  color: #d4edda;
-  border-color: #1b4728;
+.action-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  border: 2px solid var(--primary-color);
 }
 
-body.dark-mode .game-card p.feedback.wrong {
-  background-color: #7b1d25;
-  color: #f8d7da;
-  border-color: #66131a;
+.action-button.secondary:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
 }
 
-/* Mini Games Mobile */
+body.dark-mode .action-button.secondary {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-color-dark);
+}
+
+.button-icon {
+  font-size: 20px;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Game Stats */
+.game-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  flex-wrap: wrap;
+}
+
+body.dark-mode .game-stats {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 14px;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--heading-color);
+}
+
+.stat-value.success {
+  color: var(--primary-color);
+}
+
+body.dark-mode .stat-label {
+  color: var(--text-color-dark);
+  opacity: 0.8;
+}
+
+body.dark-mode .stat-value {
+  color: var(--heading-color-dark);
+}
+
+/* Mobile Styles */
 @media (max-width: 768px) {
   .mini-games-container {
     padding: 20px 10px;
   }
 
-  .game-card {
+  .mini-games-container .tab-button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .tab-text {
+    display: none;
+  }
+
+  .tab-icon {
+    font-size: 20px;
+  }
+
+  .game-icon-large {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
+  }
+
+  .answers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flag-container {
+    height: 200px;
+  }
+
+  .pokemon-image-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .guess-section {
+    flex-direction: column;
+  }
+
+  .action-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .game-stats {
+    gap: 20px;
     padding: 20px;
   }
 
-  .game-card button {
-    padding: 10px 16px;
-    font-size: 14px;
+  .stat-value {
+    font-size: 24px;
   }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .answers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Animations for Mini-Games */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 10px 30px rgba(66, 184, 131, 0.3);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(66, 184, 131, 0.5);
+  }
+  100% {
+    box-shadow: 0 10px 30px rgba(66, 184, 131, 0.3);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Vue Transitions for Mini-Games */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 /***** RESUME VIEW - MODERN DESIGN *****/
