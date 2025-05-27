@@ -1,9 +1,7 @@
 <template>
   <nav class="navbar" :class="{ open: isOpen }">
     <!-- Close Button für Mobile -->
-    <button class="close-btn" @click="$emit('close')" v-if="isOpen">
-      ✕
-    </button>
+    <button class="close-btn" @click="$emit('close')" v-if="isOpen">✕</button>
 
     <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle">
@@ -30,16 +28,24 @@
           <router-link to="/" @click="closeOnMobile">About</router-link>
         </li>
         <li>
-          <router-link to="/minigames" @click="closeOnMobile">Mini-Games</router-link>
+          <router-link to="/minigames" @click="closeOnMobile"
+            >Mini-Games</router-link
+          >
         </li>
         <li>
-          <router-link to="/resume" @click="closeOnMobile">Resume</router-link>
+          <router-link to="/resume" @click="closeOnMobile"
+            >Über Mich</router-link
+          >
         </li>
         <li>
-          <router-link to="/travel-map" @click="closeOnMobile">Travel Map</router-link>
+          <router-link to="/travel-map" @click="closeOnMobile"
+            >Reisen</router-link
+          >
         </li>
         <li>
-          <router-link to="/contact" @click="closeOnMobile">Contact</router-link>
+          <router-link to="/contact" @click="closeOnMobile"
+            >Kontakt</router-link
+          >
         </li>
       </ul>
     </div>
@@ -47,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits } from "vue";
 
 // Props
 const props = defineProps<{
@@ -55,17 +61,17 @@ const props = defineProps<{
 }>();
 
 // Emits
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 // Dark Mode Toggle
 const toggleDarkMode = () => {
-  document.body.classList.toggle('dark-mode');
+  document.body.classList.toggle("dark-mode");
 };
 
 // Close navbar on mobile after clicking a link
 const closeOnMobile = () => {
   if (window.innerWidth <= 768) {
-    emit('close');
+    emit("close");
   }
 };
 </script>

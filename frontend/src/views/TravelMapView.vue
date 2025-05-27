@@ -1,102 +1,82 @@
 <template>
   <div class="travel-container">
     <h1 class="travel-title">Meine Reisen</h1>
-    
-    <!-- Tab Navigation -->
+
     <div class="tab-navigation">
-      <button 
-        :class="['tab-button', { active: activeTab === 'photos' }]"
-        @click="activeTab = 'photos'"
+      <button
+        @click="activeTab = 0"
+        :class="['tab-button', { active: activeTab === 0 }]"
       >
-        <span class="tab-icon">📸</span>
+        <FontAwesomeIcon :icon="faCamera" class="tab-icon" />
         <span class="tab-text">Fotos</span>
       </button>
-      <button 
-        :class="['tab-button', { active: activeTab === 'map' }]"
-        @click="activeTab = 'map'"
+      <button
+        @click="activeTab = 1"
+        :class="['tab-button', { active: activeTab === 1 }]"
       >
-        <span class="tab-icon">🗺️</span>
+        <FontAwesomeIcon :icon="faMap" class="tab-icon" />
         <span class="tab-text">Karte</span>
       </button>
     </div>
 
-    <!-- Content Area -->
     <div class="travel-content">
-      <transition name="fade-slide" mode="out-in">
+      <transition name="fade" mode="out-in">
         <!-- Photos Tab -->
-        <div v-if="activeTab === 'photos'" key="photos" class="tab-content">
+        <div v-if="activeTab === 0" key="photos" class="tab-content">
           <div class="photos-header">
-            <div class="header-icon">
-              <span>📸</span>
-            </div>
-            <h2>Reisefotos</h2>
-            <p class="header-description">Entdecke die schönsten Momente meiner Reisen</p>
+            <div class="header-icon">📸</div>
+            <h2>Meine Reisefotos</h2>
+            <p class="header-description">
+              Erinnerungen aus {{ photos.length }} wundervollen Orten
+            </p>
           </div>
 
-          <!-- Photo Gallery -->
           <div class="photo-gallery">
-            <div 
-              v-for="(location, index) in travelLocations" 
-              :key="index"
+            <div
+              v-for="photo in photos"
+              :key="photo.id"
+              @click="selectedPhoto = photo"
               class="photo-card"
-              @click="selectedPhoto = location"
             >
               <div class="photo-image">
-                <img :src="location.image" :alt="location.name" />
+                <img :src="photo.imageUrl" :alt="photo.location" />
                 <div class="photo-overlay">
-                  <span class="photo-location">{{ location.name }}</span>
-                  <span class="photo-country">{{ location.country }}</span>
+                  <span class="photo-location">{{ photo.location }}</span>
+                  <span class="photo-country">{{ photo.country }}</span>
                 </div>
               </div>
               <div class="photo-info">
-                <h3>{{ location.name }}</h3>
-                <p>{{ location.description }}</p>
+                <h3>{{ photo.location }}</h3>
+                <p>{{ photo.description }}</p>
                 <div class="photo-meta">
                   <span class="meta-item">
-                    <span class="meta-icon">📅</span>
-                    {{ location.date }}
-                  </span>
-                  <span class="meta-item">
-                    <span class="meta-icon">🏷️</span>
-                    {{ location.category }}
+                    <FontAwesomeIcon :icon="faCalendarDays" class="meta-icon" />
+                    {{ photo.date }}
                   </span>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Photo Modal -->
-          <div v-if="selectedPhoto" class="photo-modal" @click="selectedPhoto = null">
-            <div class="modal-content" @click.stop>
-              <button class="modal-close" @click="selectedPhoto = null">✕</button>
-              <img :src="selectedPhoto.image" :alt="selectedPhoto.name" />
-              <div class="modal-info">
-                <h3>{{ selectedPhoto.name }}, {{ selectedPhoto.country }}</h3>
-                <p>{{ selectedPhoto.description }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Map Tab -->
-        <div v-else-if="activeTab === 'map'" key="map" class="tab-content">
+        <div v-else-if="activeTab === 1" key="map" class="tab-content">
           <div class="map-header">
-            <div class="header-icon">
-              <span>🗺️</span>
-            </div>
-            <h2>Reisekarte</h2>
-            <p class="header-description">Alle besuchten Orte auf einen Blick</p>
+            <div class="header-icon">🗺️</div>
+            <h2>Meine Reisekarte</h2>
+            <p class="header-description">
+              Entdecke alle Orte, die ich besucht habe
+            </p>
           </div>
 
-          <!-- Map Stats -->
           <div class="map-stats">
             <div class="stat-card">
               <span class="stat-number">{{ travelLocations.length }}</span>
-              <span class="stat-label">Orte besucht</span>
+              <span class="stat-label">Besuchte Orte</span>
             </div>
             <div class="stat-card">
               <span class="stat-number">{{ uniqueCountries }}</span>
-              <span class="stat-label">Länder erkundet</span>
+              <span class="stat-label">Länder</span>
             </div>
             <div class="stat-card">
               <span class="stat-number">{{ totalDistance }}</span>
@@ -104,205 +84,280 @@
             </div>
           </div>
 
-          <!-- Map Container -->
           <div class="map-wrapper">
             <div id="travel-map" class="leaflet-map"></div>
           </div>
 
-          <!-- Location List -->
           <div class="location-list">
             <h3>Besuchte Orte</h3>
             <div class="location-grid">
-              <div 
-                v-for="(location, index) in travelLocations" 
-                :key="index"
+              <div
+                v-for="location in travelLocations"
+                :key="location.id"
+                @click="focusLocation(location)"
                 class="location-item"
-                @click="flyToLocation(location)"
               >
-                <div class="location-flag">{{ location.flag }}</div>
+                <span class="location-flag">{{
+                  getCountryFlag(location.country)
+                }}</span>
                 <div class="location-details">
-                  <h4>{{ location.name }}</h4>
-                  <p>{{ location.country }}</p>
+                  <h4>{{ location.city }}</h4>
+                  <p>{{ location.description }}</p>
                 </div>
-                <div class="location-arrow">→</div>
+                <FontAwesomeIcon :icon="faArrowRight" class="location-arrow" />
               </div>
             </div>
           </div>
         </div>
       </transition>
     </div>
+
+    <!-- Photo Modal -->
+    <div v-if="selectedPhoto" @click="selectedPhoto = null" class="photo-modal">
+      <div class="modal-content" @click.stop>
+        <button @click="selectedPhoto = null" class="modal-close">
+          <FontAwesomeIcon :icon="faTimes" />
+        </button>
+        <img :src="selectedPhoto.imageUrl" :alt="selectedPhoto.location" />
+        <div class="modal-info">
+          <h3>{{ selectedPhoto.location }}, {{ selectedPhoto.country }}</h3>
+          <p>{{ selectedPhoto.description }}</p>
+          <p class="photo-date">{{ selectedPhoto.date }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch } from "vue";
-import L from "leaflet";
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  faCamera,
+  faMap,
+  faLocationDot,
+  faCalendarDays,
+  faArrowRight,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
-// Fix for default markers
+// Fix für Leaflet Marker Icons
 import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerIconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
-let DefaultIcon = L.icon({
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIconRetina,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
 });
 
-L.Marker.prototype.options.icon = DefaultIcon;
-
-// State
-const activeTab = ref('photos');
+// Reactive state
+const activeTab = ref(0);
 const selectedPhoto = ref(null);
 let map = null;
 
-// Travel data
-const travelLocations = ref([
+import bangkokImg from "@/assets/bangkok.jpeg";
+import krabiImg from "@/assets/krabi.jpeg";
+import budapestImg from "@/assets/budapest.jpeg";
+import genuaImg from "@/assets/genua.jpg";
+import kohphiphiImg from "@/assets/kohphiphi.jpeg";
+import venedigImg from "@/assets/Venedig.jpeg";
+
+// Photos data mit URL-Pfaden
+const photos = ref([
   {
-    name: "Zürich",
-    country: "Schweiz",
-    flag: "🇨🇭",
-    coordinates: [47.3769, 8.5417],
-    description: "Meine wunderschöne Heimatstadt am Zürichsee",
-    image: "/api/placeholder/400/300",
-    date: "Immer",
-    category: "Heimat"
+    id: 1,
+    location: "Bangkok",
+    country: "Thailand 🇹🇭",
+    imageUrl: bangkokImg,
+    description:
+      "Die pulsierende Hauptstadt Thailands - Tempel, Street Food und Varane!",
+    date: "Februar 2025",
   },
   {
-    name: "Paris",
-    country: "Frankreich",
-    flag: "🇫🇷",
-    coordinates: [48.8566, 2.3522],
-    description: "Die Stadt der Liebe mit dem beeindruckenden Eiffelturm",
-    image: "/api/placeholder/400/300",
-    date: "Juni 2023",
-    category: "Städtereise"
+    id: 2,
+    location: "Krabi",
+    country: "Thailand 🇹🇭",
+    imageUrl: krabiImg,
+    description:
+      "Begegnung mit einem frechen Affen - der Ort ist voller Überraschungen!",
+    date: "Februar 2025",
   },
   {
-    name: "Barcelona",
-    country: "Spanien",
-    flag: "🇪🇸",
-    coordinates: [41.3851, 2.1734],
-    description: "Gaudís Meisterwerke und mediterrane Lebensfreude",
-    image: "/api/placeholder/400/300",
-    date: "August 2023",
-    category: "Städtereise"
+    id: 3,
+    location: "Koh Phi Phi",
+    country: "Thailand 🇹🇭",
+    imageUrl: kohphiphiImg,
+    description:
+      "Traumhafte Strände und kristallklares Wasser - ein echtes Paradies.",
+    date: "Februar 2025",
   },
   {
-    name: "Reykjavik",
-    country: "Island",
-    flag: "🇮🇸",
-    coordinates: [64.1466, -21.9426],
-    description: "Nordlichter und atemberaubende Naturwunder",
-    image: "/api/placeholder/400/300",
-    date: "Dezember 2023",
-    category: "Abenteuer"
+    id: 4,
+    location: "Genua",
+    country: "Italien 🇮🇹",
+    imageUrl: genuaImg,
+    description: "Die historische Hafenstadt Liguriens - lustige Katzen.",
+    date: "Juli 2024",
   },
   {
-    name: "Tokyo",
-    country: "Japan",
-    flag: "🇯🇵",
-    coordinates: [35.6762, 139.6503],
-    description: "Moderne trifft Tradition in dieser faszinierenden Metropole",
-    image: "/api/placeholder/400/300",
+    id: 5,
+    location: "Venedig",
+    country: "Italien 🇮🇹",
+    imageUrl: venedigImg,
+    description:
+      "Die berühmte Rialtobrücke - Venedig ist einfach wunderschön mit seinen Kanälen.",
     date: "März 2024",
-    category: "Kultur"
   },
   {
-    name: "New York",
-    country: "USA",
-    flag: "🇺🇸",
-    coordinates: [40.7128, -74.0060],
-    description: "Die Stadt, die niemals schläft",
-    image: "/api/placeholder/400/300",
-    date: "September 2024",
-    category: "Städtereise"
-  }
+    id: 6,
+    location: "Budapest",
+    country: "Ungarn 🇭🇺",
+    imageUrl: budapestImg,
+    description:
+      "Das prächtige Parlamentsgebäude bei Nacht - Budapest zeigt sich von seiner schönsten Seite.",
+    date: "November 2024",
+  },
 ]);
 
-// Computed
+// Travel locations for map
+const travelLocations = ref([
+  {
+    id: 1,
+    city: "Bangkok",
+    country: "Thailand",
+    coordinates: [13.7563, 100.5018],
+    description: "Pulsierende Hauptstadt mit Tempeln und Street Food",
+  },
+  {
+    id: 2,
+    city: "Krabi",
+    country: "Thailand",
+    coordinates: [8.0863, 98.9063],
+    description: "Traumstrände und Kalksteinfelsen",
+  },
+  {
+    id: 3,
+    city: "Koh Phi Phi",
+    country: "Thailand",
+    coordinates: [7.7407, 98.7784],
+    description: "Paradiesische Insel mit türkisblauem Wasser",
+  },
+  {
+    id: 4,
+    city: "Genua",
+    country: "Italien",
+    coordinates: [44.4056, 8.9463],
+    description: "Historische Hafenstadt in Ligurien",
+  },
+  {
+    id: 5,
+    city: "Venedig",
+    country: "Italien",
+    coordinates: [45.4408, 12.3155],
+    description: "Stadt der Kanäle und Gondeln",
+  },
+  {
+    id: 6,
+    city: "Budapest",
+    country: "Ungarn",
+    coordinates: [47.4979, 19.0402],
+    description: "Perle an der Donau mit prächtigem Parlament",
+  },
+]);
+
+// Computed properties
 const uniqueCountries = computed(() => {
-  return new Set(travelLocations.value.map(loc => loc.country)).size;
+  const countries = new Set(travelLocations.value.map((loc) => loc.country));
+  return countries.size;
 });
 
 const totalDistance = computed(() => {
-  // Simplified calculation
-  return "42.000+";
+  // Simplified calculation for demo
+  return "15.000+";
 });
 
 // Methods
-const initMap = async () => {
-  await nextTick();
-  
-  if (map) {
-    map.remove();
-  }
+const getCountryFlag = (country) => {
+  const flags = {
+    Thailand: "🇹🇭",
+    Italien: "🇮🇹",
+    Ungarn: "🇭🇺",
+  };
+  return flags[country] || "🏳️";
+};
 
-  const mapElement = document.getElementById("travel-map");
-  if (!mapElement) return;
-
-  map = L.map("travel-map").setView([46.8182, 8.2275], 2);
-
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  // Add markers
-  travelLocations.value.forEach((location) => {
-    const marker = L.marker(location.coordinates)
-      .bindPopup(
-        `<div class="popup-content">
-          <h3>${location.name}</h3>
-          <p>${location.country}</p>
-          <p class="popup-description">${location.description}</p>
-        </div>`
-      )
-      .addTo(map);
-  });
-
-  // Connect locations with lines
-  const coordinates = travelLocations.value.map(loc => loc.coordinates);
-  L.polyline(coordinates, {
-    color: '#42b883',
-    weight: 2,
-    opacity: 0.5,
-    dashArray: '10, 10'
-  }).addTo(map);
-
+const initMap = () => {
   setTimeout(() => {
-    map.invalidateSize();
+    if (document.getElementById("travel-map")) {
+      map = L.map("travel-map").setView([30, 15], 2);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
+
+      // Add markers for each location
+      travelLocations.value.forEach((location) => {
+        const marker = L.marker(location.coordinates).addTo(map).bindPopup(`
+            <div class="popup-content">
+              <h3>${location.city}</h3>
+              <p>${location.country}</p>
+              <p class="popup-description">${location.description}</p>
+            </div>
+          `);
+      });
+    }
   }, 100);
 };
 
-const flyToLocation = (location) => {
+const focusLocation = (location) => {
   if (map) {
-    map.flyTo(location.coordinates, 10, {
+    map.setView(location.coordinates, 10, {
       animate: true,
-      duration: 1.5
+      duration: 1,
+    });
+
+    // Open the popup for this location
+    map.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        const markerPos = layer.getLatLng();
+        if (
+          markerPos.lat === location.coordinates[0] &&
+          markerPos.lng === location.coordinates[1]
+        ) {
+          layer.openPopup();
+        }
+      }
     });
   }
 };
 
-// Watchers
-watch(activeTab, (newTab) => {
-  if (newTab === 'map') {
-    setTimeout(initMap, 100);
+// Lifecycle hooks
+onMounted(() => {
+  if (activeTab.value === 1) {
+    initMap();
   }
 });
 
-// Lifecycle
-onMounted(() => {
-  if (activeTab.value === 'map') {
+onUnmounted(() => {
+  if (map) {
+    map.remove();
+  }
+});
+
+// Watch for tab changes
+import { watch } from "vue";
+watch(activeTab, (newTab) => {
+  if (newTab === 1 && !map) {
     initMap();
   }
 });
 </script>
 
-<script>
-import { computed } from 'vue';
-</script>
-
 <style scoped>
-/* Styles kommen im separaten CSS-Artifact */
+/* Alle Styles sind bereits in der globalen style.css definiert */
 </style>
