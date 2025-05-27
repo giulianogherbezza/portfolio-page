@@ -25,16 +25,11 @@
       <!-- Navigation Links -->
       <ul>
         <li>
-          <router-link to="/" @click="closeOnMobile">About</router-link>
-        </li>
-        <li>
-          <router-link to="/minigames" @click="closeOnMobile"
-            >Mini-Games</router-link
-          >
+          <router-link to="/" @click="closeOnMobile">Mini-Games</router-link>
         </li>
         <li>
           <router-link to="/resume" @click="closeOnMobile"
-            >Über Mich</router-link
+            >Über mich</router-link
           >
         </li>
         <li>
