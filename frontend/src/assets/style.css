@@ -28,7 +28,8 @@ body {
   font-family: "Arial", sans-serif;
   background-color: var(--background-light);
   color: var(--text-color);
-  transition: background-color 0.5s ease-in-out, color var(--transition-speed) ease;
+  transition: background-color 0.5s ease-in-out,
+    color var(--transition-speed) ease;
   min-height: 100vh;
 }
 
@@ -158,9 +159,8 @@ body.dark-mode .hamburger:hover {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: transform var(--transition-speed) ease-in-out, 
-              background var(--transition-speed) ease, 
-              color var(--transition-speed) ease;
+  transition: transform var(--transition-speed) ease-in-out,
+    background var(--transition-speed) ease, color var(--transition-speed) ease;
   z-index: 1000;
 }
 
@@ -315,7 +315,7 @@ body.dark-mode .navbar .close-btn {
   }
 
   .navbar.open::before {
-    content: '';
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
@@ -449,7 +449,7 @@ body.dark-mode .footer {
 }
 
 /***** TRAVEL MAP VIEW *****/
-/***** TRAVEL MAP VIEW - MODERN DESIGN *****/
+
 .travel-container {
   padding: 40px 20px;
   max-width: 1200px;
@@ -468,7 +468,7 @@ body.dark-mode .footer {
 }
 
 .travel-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -778,92 +778,154 @@ body.dark-mode .meta-item {
   line-height: 1.6;
 }
 
-/* Map Stats */
-.map-stats {
+/* Header für Locations */
+.locations-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.locations-header .header-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--primary-color), #35a373);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 10px 30px rgba(66, 184, 131, 0.3);
+}
+
+.locations-header h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  margin-bottom: 10px;
+  color: var(--heading-color);
+}
+
+body.dark-mode .locations-header h2 {
+  color: var(--heading-color-dark);
+}
+
+.locations-header .header-description {
+  font-size: 18px;
+  color: var(--text-color);
+  opacity: 0.8;
+}
+
+/* Location Stats */
+.location-stats {
   display: flex;
   justify-content: center;
   gap: 30px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   flex-wrap: wrap;
 }
 
-.stat-card {
+/* Locations List */
+.locations-list {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.country-section {
+  margin-bottom: 40px;
   background: var(--card-bg-light);
-  padding: 25px 40px;
   border-radius: 20px;
-  text-align: center;
+  padding: 30px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: all var(--transition-speed) ease;
 }
 
-.stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-body.dark-mode .stat-card {
+body.dark-mode .country-section {
   background: var(--card-bg-dark);
 }
 
-.stat-number {
-  display: block;
-  font-size: 36px;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-bottom: 5px;
+.country-name {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--heading-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.stat-label {
+body.dark-mode .country-name {
+  color: var(--heading-color-dark);
+}
+
+.country-flag {
+  font-size: 32px;
+}
+
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.city-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  transition: all var(--transition-speed) ease;
+}
+
+.city-card:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateX(5px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .city-card {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .city-card:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.city-icon {
+  color: var(--primary-color);
+  font-size: 20px;
+}
+
+.city-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: var(--heading-color);
+}
+
+body.dark-mode .city-info h4 {
+  color: var(--heading-color-dark);
+}
+
+.city-info p {
+  margin: 0;
   font-size: 14px;
   color: var(--text-color);
   opacity: 0.8;
 }
 
-body.dark-mode .stat-label {
+body.dark-mode .city-info p {
   color: var(--text-color-dark);
 }
 
-/* Map Wrapper */
-.map-wrapper {
-  background: var(--card-bg-light);
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 40px;
-}
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .cities-grid {
+    grid-template-columns: 1fr;
+  }
 
-body.dark-mode .map-wrapper {
-  background: var(--card-bg-dark);
-}
+  .country-section {
+    padding: 20px;
+  }
 
-.leaflet-map {
-  width: 100%;
-  height: 500px;
-  border-radius: 15px;
-  z-index: 1;
-}
-
-/* Leaflet Popup Styling */
-.leaflet-popup-content-wrapper {
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-}
-
-.popup-content h3 {
-  margin: 0 0 5px 0;
-  color: var(--heading-color);
-  font-size: 18px;
-}
-
-.popup-content p {
-  margin: 0;
-  color: var(--text-color);
-  font-size: 14px;
-}
-
-.popup-description {
-  margin-top: 10px !important;
-  font-style: italic;
+  .location-stats {
+    gap: 15px;
+  }
 }
 
 /* Location List */
@@ -1169,7 +1231,7 @@ body.dark-mode .contact-container textarea::placeholder {
 }
 
 .resume-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -1356,7 +1418,7 @@ body.dark-mode .category-description {
 }
 
 .timeline-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1478,7 +1540,7 @@ body.dark-mode .achievements h4 {
 }
 
 .achievements li::before {
-  content: '✓';
+  content: "✓";
   position: absolute;
   left: 0;
   color: var(--primary-color);
@@ -1626,7 +1688,7 @@ body.dark-mode .skills-overview h3 {
 }
 
 .games-title::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -1760,7 +1822,10 @@ body.dark-mode .game-description {
 }
 
 /* Cards */
-.question-card, .joke-card, .pokemon-card, .flag-card {
+.question-card,
+.joke-card,
+.pokemon-card,
+.flag-card {
   background: var(--card-bg-light);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -1777,7 +1842,9 @@ body.dark-mode .flag-card {
   background: var(--card-bg-dark);
 }
 
-.question-card h3, .joke-setup h3, .joke-punchline h3 {
+.question-card h3,
+.joke-setup h3,
+.joke-punchline h3 {
   font-size: 18px;
   color: var(--primary-color);
   margin-bottom: 15px;
@@ -1847,7 +1914,8 @@ body.dark-mode .answer-button:hover:not(:disabled) {
 }
 
 /* Joke Styles */
-.joke-setup, .joke-punchline {
+.joke-setup,
+.joke-punchline {
   padding: 20px;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 15px;
